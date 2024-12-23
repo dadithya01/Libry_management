@@ -333,58 +333,6 @@ public class Libry_management {
         }
     }
 
-
-//    public static void deleteBook() {
-//        System.out.println();
-//        equals();
-//        System.out.println(BLUE_BOLD + "|\t\t\t\t===DELETE BOOK===\t\t\t\t   |" + RESET);
-//        equals();
-//
-//        if (bookCount == 0) {
-//            System.out.println(RED_BOLD + "No books available to delete..." + RESET);
-//            return;
-//        }
-//
-//        System.out.println();
-//        System.out.print("Enter book ID to delete" + GREEN_BOLD + " >> " + RESET);
-//        String bookId = scanner.next();
-//        boolean bookFound = false;
-//
-//        for (int i = 0; i < books.length; i++) {
-//            if (books[i] != null){
-//                if(books[i][0] != null){
-//                    if(books[i][0].equals(bookId)){
-//                        bookFound = true;
-//
-//                // Shift all subsequent entries to maintain data integrity
-//                        for (int j = i; j < books.length - 1; j++) {
-//                        books[j] = books[j + 1];
-//                        }
-//
-//                // Nullify the last entry (since it was shifted up)
-//                        books[books.length - 1] = null;
-//                        bookCount--;
-//
-//                        System.out.println(GREEN_BOLD + "Book successfully deleted..." + RESET);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//
-//        if (!bookFound) {
-//            System.out.println(RED_BOLD + "Book ID not found. Please try again." + RESET);
-//        }
-//
-//        System.out.println(GREEN_BOLD + "Returning to manage books menu..." + RESET);
-//        manageBooks();
-//    }
-
-
-//    public static void deleteBook(){
-//        System.out.println("deletebook");
-//    }
-
     public static void searchBook(){
         System.out.println("searchbook");
     }
