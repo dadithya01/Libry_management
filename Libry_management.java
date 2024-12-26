@@ -6,10 +6,10 @@ public class Libry_management {
     static final int maxMembers= 100;
     static int bookCount=0;
     static int memberCount = 0;
-    public static Scanner scanner = new Scanner(System.in);
-    public static String[][] users = {{"@adithya", "2006"}};
-    public static String[][] books = new String[maxBooks][5];
-    public static String[][] members = new String[maxMembers][4];
+    static Scanner scanner = new Scanner(System.in);
+    static String[][] users = {{"@adithya", "2006"}};
+    static String[][] books = new String[maxBooks][5];
+    static String[][] members = new String[maxMembers][4];
 
     //colours
     public static final String RESET = "\033[0m";// Text Reset
@@ -216,17 +216,32 @@ public class Libry_management {
             equals();
             System.out.println();
             System.out.print("Book id"+GREEN_BOLD+" >> "+RESET);
-            books[bookCount][0]= scanner.next();
-            System.out.print("Book title"+GREEN_BOLD+" >> "+RESET);
-            books[bookCount][1]= scanner.next();
-            System.out.print("Book author"+GREEN_BOLD+" >> "+RESET);
-            books[bookCount][2]= scanner.next();
-            System.out.print("Book genre"+GREEN_BOLD+" >> "+RESET);
-            books[bookCount][3]= scanner.next();
-            System.out.print("Book quantity"+GREEN_BOLD+" >> "+RESET);
-            books[bookCount][4] = scanner.next();
-            System.out.println(GREEN_BOLD+"Book added successfully..."+RESET);
-            bookCount++;
+            String id= scanner.next();
+            boolean idExist =false;
+            for (int i = 0; i < bookCount; i++) {
+                if (id.equals(books[i][0])){
+                    idExist=true;
+                    break;
+                }
+            }
+            if (idExist){
+                System.out.print(RED_BOLD+"Id is already exist try again..."+RESET);
+                System.out.println();
+            }
+            else {
+                books[bookCount][0] = id;
+                System.out.print("Book title" + GREEN_BOLD + " >> " + RESET);
+                books[bookCount][1] = scanner.next();
+                System.out.print("Book author" + GREEN_BOLD + " >> " + RESET);
+                books[bookCount][2] = scanner.next();
+                System.out.print("Book genre" + GREEN_BOLD + " >> " + RESET);
+                books[bookCount][3] = scanner.next();
+                System.out.print("Book quantity"+GREEN_BOLD+" >> "+RESET);
+                books[bookCount][4] = scanner.next();
+                System.out.println();
+                System.out.println(GREEN_BOLD+"Book added successfully..."+RESET);
+                bookCount++;
+            }
             while (true){
                 System.out.println();
                 System.out.print("Do you want to add another book ? (y?n)"+GREEN_BOLD+" >> "+RESET);
@@ -300,37 +315,32 @@ public class Libry_management {
 
     public static void deleteBook() {
         System.out.println();
-        System.out.println(BLUE_BOLD + "=== DELETE BOOK ===" + RESET);
+        equals();
+        System.out.println(BLUE_BOLD + "|\t\t\t\t=== DELETE BOOK ===\t\t\t\t |" + RESET);
+        equals();
 
         if (bookCount == 0) {
-            System.out.println(RED_BOLD + "No books available to delete." + RESET);
+            System.out.println(RED_BOLD + "No books available to delete..." + RESET);
             return;
         }
-
         System.out.print("Enter book ID to delete" + GREEN_BOLD + " >> " + RESET);
         String bookId = scanner.next();
-        boolean bookFound = false;
-
-        // Create a new array for updated books
-        String[][] updatedBooks = new String[books.length][5];
-        int updatedIndex = 0;
-
-        // Copy books to the new array except the one to delete
+        boolean found = false;
         for (int i = 0; i < bookCount; i++) {
             if (books[i][0].equals(bookId)) {
-                bookFound = true; // Found the book to delete
-                continue; // Skip this book
+                for (int j = i; j < bookCount - 1; j++) {
+                    books[j] = books[j + 1];
+                }
+                bookCount--;
+                System.out.println(GREEN_BOLD + "Book deleted successfully..." + RESET);
+                found = true;
+                break;
             }
-            updatedBooks[updatedIndex++] = books[i]; // Copy the book to updated array
         }
-
-        if (bookFound) {
-            books = updatedBooks; // Replace the original array
-            bookCount--; // Decrement book count
-            System.out.println(GREEN_BOLD + "Book deleted successfully!" + RESET);
-        } else {
-            System.out.println(RED_BOLD + "Book ID not found!" + RESET);
+        if (!found) {
+            System.out.println(RED_BOLD + "Book not found..." + RESET);
         }
+        manageBooks();
     }
 
     public static void searchBook(){
