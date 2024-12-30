@@ -42,6 +42,7 @@ public class Libry_management {
                     System.out.print("Enter password"+GREEN_BOLD+" >> "+RESET);
                     String password = scanner.next();
                     if (password.equals(users[0][1])){
+                        clearConsole();
                         System.out.println(GREEN_BOLD+"Login successfully..."+RESET);
                         mainMenu();
                     }else {
@@ -70,18 +71,23 @@ public class Libry_management {
             int input = getValidInt();
             switch (input){
                 case 1:
+                    clearConsole();
                     manageBooks();
                     break;
                 case 2:
+                    clearConsole();
                     manageMembers();
                     break;
                 case 3:
+                    clearConsole();
                     issueBooks();
                     break;
                 case 4:
+                    clearConsole();
                     returnBooks();
                     break;
                 case 5:
+                    clearConsole();
                     viewReport();
                     break;
                 case 6:
@@ -93,10 +99,14 @@ public class Libry_management {
                         int yesNo=getValidInt();
                         switch (yesNo){
                             case 1:
+                                clearConsole();
                                 System.out.println(GREEN_BOLD+"Login out..."+RESET);
                                 logIn();
                                 break;
                             case 2:
+                                clearConsole();
+                                equals();
+                                System.out.println();
                                 System.out.println(GREEN_BOLD+"Exiting from system..."+RESET);
                                 System.out.println();
                                 equals();
@@ -104,11 +114,13 @@ public class Libry_management {
                                 System.exit(0);
                                 break;
                             default:
+                                clearConsole();
                                 System.out.println(RED_BOLD+"Invalid option try again..."+RESET);
                                 break;
                         }
                     }
                 default:
+                    clearConsole();
                     System.out.println(RED_BOLD+"Invalid option try again..."+RESET);
                     break;
             }
@@ -131,25 +143,32 @@ public class Libry_management {
             int input=getValidInt();
             switch (input){
                 case 1:
+                    clearConsole();
                     addBook();
                     break;
                 case 2:
+                    clearConsole();
                     updateBook();
                     break;
                 case 3:
+                    clearConsole();
                     deleteBook();
                     break;
                 case 4:
+                    clearConsole();
                     searchBook();
                     break;
                 case 5:
+                    clearConsole();
                     viewAllBooks();
                     break;
                 case 6:
+                    clearConsole();
                     System.out.println(GREEN_BOLD+"Back to main menu..."+RESET);
                     mainMenu();
                     break;
                 default:
+                    clearConsole();
                     System.out.println(RED_BOLD+"Invalid option try again..."+RESET);
                     break;
             }
@@ -171,25 +190,32 @@ public class Libry_management {
             int input=getValidInt();
             switch (input){
                 case 1:
+                    clearConsole();
                     addMember();
                     break;
                 case 2:
+                    clearConsole();
                     updateMember();
                     break;
                 case 3:
+                    clearConsole();
                     deleteMember();
                     break;
                 case 4:
+                    clearConsole();
                     searchMember();
                     break;
                 case 5:
+                    clearConsole();
                     viewAllMembers();
                     break;
                 case 6:
+                    clearConsole();
                     System.out.println(GREEN_BOLD+"Back to main menu..."+RESET);
                     mainMenu();
                     break;
                 default:
+                    clearConsole();
                     System.out.println(RED_BOLD+"Invalid option try again..."+RESET);
                     break;
             }
@@ -225,6 +251,7 @@ public class Libry_management {
                 }
             }
             if (idExist){
+                clearConsole();
                 System.out.print(RED_BOLD+"Id is already exist try again..."+RESET);
                 System.out.println();
             }
@@ -251,10 +278,12 @@ public class Libry_management {
                         addBook();
                         break;
                     case "n","N":
+                        clearConsole();
                         System.out.println(GREEN_BOLD+"Back to menu..."+RESET);
                         manageBooks();
                         break;
                     default:
+                        clearConsole();
                         System.out.println(RED_BOLD+"Invalid option try again..."+RESET);
                         break;
                 }
@@ -318,6 +347,7 @@ public class Libry_management {
         equals();
         System.out.println(BLUE_BOLD + "|\t\t\t\t=== DELETE BOOK ===\t\t\t\t |" + RESET);
         equals();
+        System.out.println();
 
         if (bookCount == 0) {
             System.out.println(RED_BOLD + "No books available to delete..." + RESET);
@@ -344,7 +374,30 @@ public class Libry_management {
     }
 
     public static void searchBook(){
-        System.out.println("searchbook");
+        System.out.println();
+        equals();
+        System.out.println(BLUE_BOLD+"|\t\t\t\t===SEARCH BOOK===\t\t\t\t |"+RESET);
+        equals();
+        System.out.println();
+
+        if (bookCount == 0) {
+            System.out.println(RED_BOLD + "No books available to search..." + RESET);
+            return;
+        }
+        System.out.print("Enter book id"+GREEN_BOLD+">>"+RESET);
+        String id = scanner.next();
+
+        boolean bookFound = false;
+        for (int i = 0; i < bookCount; i++) {
+            if (id.equals(books[i][0])){
+                System.out.printf(BLUE_BOLD+"\nBook id : "+RESET+books[i][0]+"\n"+BLUE_BOLD+"Book title : "+RESET+books[i][1]+"\n"+BLUE_BOLD+"Book author : "+RESET+ books[i][2]+"\n"+BLUE_BOLD+"Book genre : "+RESET+ books[i][3]+"\n"+BLUE_BOLD+"Book quantity : "+RESET+ books[i][4]+"\n");
+                bookFound=true;
+                break;
+            }
+        }
+        if (!bookFound){
+            System.out.println(RED_BOLD+"Book not found try again..."+RESET);
+        }
     }
 
     public static void viewAllBooks(){
@@ -359,6 +412,8 @@ public class Libry_management {
             for (int i = 0; i < bookCount; i++) {
                 System.out.printf(BLUE_BOLD+"\nBook id : "+RESET+books[i][0]+"\n"+BLUE_BOLD+"Book title : "+RESET+books[i][1]+"\n"+BLUE_BOLD+"Book author : "+RESET+ books[i][2]+"\n"+BLUE_BOLD+"Book genre : "+RESET+ books[i][3]+"\n"+BLUE_BOLD+"Book quantity : "+RESET+ books[i][4]+"\n");
             }
+            System.out.println();
+            System.out.println(GREEN_BOLD+"Back to menu..."+RESET);
         }
     }
 
@@ -366,19 +421,35 @@ public class Libry_management {
     public  static void addMember(){
         System.out.println();
         equals();
-        System.out.println(BLUE_BOLD+"\t\t\t\t===ADD MEMBER===\t\t\t\t |"+RESET);
+        System.out.println(BLUE_BOLD+"\t\t\t\t===ADD MEMBERS===\t\t\t\t |"+RESET);
         equals();
         System.out.println();
         System.out.print("Member id"+GREEN_BOLD+" >> "+RESET);
-        members[memberCount][0]= scanner.next();
-        System.out.print("Name"+GREEN_BOLD+" >> "+RESET);
-        members[memberCount][1]= scanner.next();
-        System.out.print("Contact number"+GREEN_BOLD+" >> "+RESET);
-        members[memberCount][2]= scanner.next();
-        System.out.print("Email"+GREEN_BOLD+" >> "+RESET);
-        members[memberCount][3]= scanner.next();
-        System.out.println(GREEN_BOLD+"Member added successfully..."+RESET);
-        memberCount++;
+        String id= scanner.next();
+        boolean idExist =false;
+        for (int i = 0; i < memberCount; i++) {
+            if (id.equals(members[i][0])){
+                idExist=true;
+                break;
+            }
+        }
+        if (idExist){
+            clearConsole();
+            System.out.print(RED_BOLD+"Id is already exist try again..."+RESET);
+            System.out.println();
+        }
+        else {
+            members[memberCount][0] = id;
+            System.out.print("Name" + GREEN_BOLD + " >> " + RESET);
+            members[memberCount][1] = scanner.next();
+            System.out.print("Contact number" + GREEN_BOLD + " >> " + RESET);
+            members[memberCount][2] = scanner.next();
+            System.out.print("Email" + GREEN_BOLD + " >> " + RESET);
+            members[memberCount][3] = scanner.next();
+            System.out.println();
+            System.out.println(GREEN_BOLD+"Member added successfully..."+RESET);
+            memberCount++;
+        }
         while (true){
             System.out.println();
             System.out.print("Do you want to add another member ? (y?n)"+GREEN_BOLD+" >> "+RESET);
@@ -388,10 +459,12 @@ public class Libry_management {
                     addMember();
                     break;
                 case "n","N":
+                    clearConsole();
                     System.out.println(GREEN_BOLD+"Back to menu..."+RESET);
                     manageMembers();
                     break;
                 default:
+                    clearConsole();
                     System.out.println(RED_BOLD+"Invalid option try again..."+RESET);
                     break;
             }
@@ -401,7 +474,7 @@ public class Libry_management {
     public static void updateMember(){
         System.out.println();
         equals();
-        System.out.println(BLUE_BOLD + "|\t\t\t\t=== UPDATE MEMBER ===\t\t\t\t |" + RESET);
+        System.out.println(BLUE_BOLD + "|\t\t\t\t===UPDATE MEMBER===\t\t\t\t |" + RESET);
         equals();
 
         if (memberCount == 0) {
@@ -411,13 +484,13 @@ public class Libry_management {
         }
         System.out.println();
         System.out.print("Enter member id to update" + GREEN_BOLD + " >> " + RESET);
-        String memberId = scanner.next();
+        String bookId = scanner.next();
         boolean memberFound =false;
 
         for (int i = 0; i < members.length; i++) {
             if (members[i] != null){
                 if(members[i][0] != null){
-                    if(members[i][0].equals(memberId)) {
+                    if(members[i][0].equals(bookId)) {
                         memberFound=true;
                         System.out.println(GREEN_BOLD + "Member found..." + RESET);
                         System.out.println();
@@ -427,13 +500,12 @@ public class Libry_management {
                         members[i][1] = newName;
 
                         System.out.print("Enter new contact number" + GREEN_BOLD + " >> " + RESET);
-                        String newContact = scanner.next();
-                        members[i][2] = newContact;
+                        String newCNumber = scanner.next();
+                        members[i][2] = newCNumber;
 
                         System.out.print("Enter new email" + GREEN_BOLD + " >> " + RESET);
                         String newEmail = scanner.next();
                         members[i][3] = newEmail;
-
                         System.out.println(GREEN_BOLD + "Member updated successfully..." + RESET);
                         break;
                     }
@@ -447,11 +519,61 @@ public class Libry_management {
     }
 
     public static void deleteMember(){
-        System.out.println("deletebook");
+        System.out.println();
+        equals();
+        System.out.println(BLUE_BOLD + "|\t\t\t\t=== DELETE MEMBER===\t\t\t\t |" + RESET);
+        equals();
+        System.out.println();
+
+        if (memberCount == 0) {
+            System.out.println(RED_BOLD + "No members available to delete..." + RESET);
+            return;
+        }
+        System.out.print("Enter member ID to delete" + GREEN_BOLD + " >> " + RESET);
+        String memberId = scanner.next();
+        boolean idFound = false;
+        for (int i = 0; i < memberCount; i++) {
+            if (members[i][0].equals(memberId)) {
+                for (int j = i; j < memberCount - 1; j++) {
+                    members[j] = members[j + 1];
+                }
+                memberCount--;
+                System.out.println(GREEN_BOLD + "Member deleted successfully..." + RESET);
+                idFound = true;
+                break;
+            }
+        }
+        if (!idFound) {
+            System.out.println(RED_BOLD + "Member not found..." + RESET);
+        }
+        manageMembers();
     }
 
     public static void searchMember(){
-        System.out.println("searchbook");
+        System.out.println();
+        equals();
+        System.out.println(BLUE_BOLD+"|\t\t\t\t===SEARCH MEMBER===\t\t\t\t |"+RESET);
+        equals();
+        System.out.println();
+
+        if (memberCount == 0) {
+            System.out.println(RED_BOLD + "No members available to search..." + RESET);
+            return;
+        }
+        System.out.print("Enter member id"+GREEN_BOLD+">>"+RESET);
+        String id = scanner.next();
+
+        boolean memberFound = false;
+        for (int i = 0; i < memberCount; i++) {
+            if (id.equals(members[i][0])){
+                System.out.printf(BLUE_BOLD+"\nMember id : "+RESET+members[i][0]+"\n"+BLUE_BOLD+"Name : "+RESET+members[i][1]+"\n"+BLUE_BOLD+"Contact number : "+RESET+ members[i][2]+"\n"+BLUE_BOLD+"Email : "+RESET+ members[i][3]+"\n");
+                memberFound=true;
+                break;
+            }
+        }
+        if (!memberFound){
+            System.out.println(RED_BOLD+"Member not found try again..."+RESET);
+        }
     }
 
     public static void viewAllMembers(){
@@ -477,5 +599,22 @@ public class Libry_management {
             scanner.next();
         }
         return scanner.nextInt();
+    }
+
+    //clearConsole
+    public final static void clearConsole() {
+        final String os = System.getProperty("os.name");
+        try {
+            if (os.contains("Linux")) {
+                System.out.print("\033\143");
+            } else if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        } catch (final Exception e) {
+// Handle the exception
+            System.err.println(e.getMessage());
+        }
     }
 }
