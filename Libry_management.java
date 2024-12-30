@@ -384,7 +384,7 @@ public class Libry_management {
             System.out.println(RED_BOLD + "No books available to search..." + RESET);
             return;
         }
-        System.out.print("Enter book id"+GREEN_BOLD+">>"+RESET);
+        System.out.print("Enter book id"+GREEN_BOLD+" >> "+RESET);
         String id = scanner.next();
 
         boolean bookFound = false;
@@ -560,7 +560,7 @@ public class Libry_management {
             System.out.println(RED_BOLD + "No members available to search..." + RESET);
             return;
         }
-        System.out.print("Enter member id"+GREEN_BOLD+">>"+RESET);
+        System.out.print("Enter member id"+GREEN_BOLD+" >> "+RESET);
         String id = scanner.next();
 
         boolean memberFound = false;
@@ -588,6 +588,8 @@ public class Libry_management {
             for (int i = 0; i < memberCount; i++) {
                 System.out.printf(BLUE_BOLD+"\nMember id : "+RESET+members[i][0]+"\n"+BLUE_BOLD+"Name : "+RESET+members[i][1]+"\n"+BLUE_BOLD+"Contact number : "+RESET+ members[i][2]+"\n"+BLUE_BOLD+"Email : "+RESET+ members[i][3]+"\n");
             }
+            System.out.println();
+            System.out.println(GREEN_BOLD+"Back to menu..."+RESET);
         }
     }
 
