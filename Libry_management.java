@@ -139,7 +139,7 @@ public class Libry_management {
             System.out.println(BLUE_BOLD+"\t\t[3] Delete book.\t\t\t[4] Search book."+RESET);
             System.out.println(BLUE_BOLD+"\t\t[5] View all books.\t\t\t[6] Back to main menu."+RESET);
             System.out.println();
-            System.out.print("Enter your choice "+GREEN_BOLD+">> "+RESET);
+            System.out.print("Enter your choice "+GREEN_BOLD+" >> "+RESET);
             int input=getValidInt();
             switch (input){
                 case 1:
@@ -186,7 +186,7 @@ public class Libry_management {
             System.out.println(BLUE_BOLD+"\t\t[3] Delete member.\t\t\t[4] Search member."+RESET);
             System.out.println(BLUE_BOLD+"\t\t[5] View all members.\t\t\t[6] Back to main menu."+RESET);
             System.out.println();
-            System.out.print("Enter your choice "+GREEN_BOLD+">> "+RESET);
+            System.out.print("Enter your choice "+GREEN_BOLD+" >> "+RESET);
             int input=getValidInt();
             switch (input){
                 case 1:
@@ -230,8 +230,46 @@ public class Libry_management {
         System.out.println("returnbooks");
     }
 
-    public static void viewReport(){
-        System.out.println("viewreport");
+    private static void viewReport() {
+        while (true) {
+            System.out.println();
+            equals();
+            System.out.println(BLUE_BOLD+"\t\t\t\t===ADD BOOK===\t\t\t\t\t |"+RESET);
+            equals();
+            System.out.println();
+            System.out.println(BLUE_BOLD+"\t\t[1] Overdue books.\t\t\t\t[2] Books issued per member."+RESET);
+            System.out.println(BLUE_BOLD+"\t\t[3] Back to main menu."+RESET);
+            System.out.println();
+            System.out.print("Enter your choice "+GREEN_BOLD+" >> "+RESET);
+            int choice = getValidInt();
+            switch (choice) {
+                case 1:
+                    clearConsole();
+                    viewOverdueBooks();
+                    break;
+                case 2:
+                    clearConsole();
+                    viewBooksIssuedPerMember();
+                    break;
+                case 3:
+                    clearConsole();
+                    System.out.println(GREEN_BOLD+"Back to main menu..."+RESET);
+                    mainMenu();
+                    break;
+                default:
+                    clearConsole();
+                    System.out.println(RED_BOLD+"Invalid option try again..."+RESET);
+                    break;
+            }
+        }
+    }
+
+    private static void viewBooksIssuedPerMember() {
+        System.out.println("viewbooksper");
+    }
+
+    private static void viewOverdueBooks() {
+        System.out.println("viewowerdue");
     }
 
     //manageBooks
