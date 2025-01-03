@@ -230,7 +230,7 @@ public class Libry_management {
         System.out.println("returnbooks");
     }
 
-    private static void viewReport() {
+    public static void viewReport() {
         while (true) {
             System.out.println();
             equals();
