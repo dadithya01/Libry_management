@@ -19,7 +19,8 @@ public class Libry_management {
     public static final String PURPLE_BOLD = "\033[1;35m";
 
     public static void main(String[]args){
-        logIn();
+        //logIn();
+        mainMenu();
     }
 
     public static void equals(){
@@ -105,7 +106,6 @@ public class Libry_management {
                                 break;
                             case 2:
                                 clearConsole();
-                                equals();
                                 System.out.println();
                                 System.out.println(GREEN_BOLD+"Exiting from system..."+RESET);
                                 System.out.println();
@@ -223,7 +223,45 @@ public class Libry_management {
     }
 
     public static void issueBooks(){
-        System.out.println("issuebooks");
+        while (true){
+            System.out.println();
+            equals();
+            System.out.println(BLUE_BOLD+"\t\t\t\t===VIEW REPORT===\t\t\t\t |"+RESET);
+            equals();
+            System.out.println();
+
+            if (memberCount == 0){
+                System.out.println(RED_BOLD+"No members available to issue books..."+RESET);
+                return;
+            }
+            System.out.println("Enter member id"+GREEN_BOLD+" >> "+RESET);
+            String memberId = scanner.next();
+            boolean memberFound = false;
+            for (int i = 0; i < memberCount; i++) {
+                if (members[i][0].equals(memberId)){
+                    memberFound = true;
+                    break;
+                }
+            }
+            if (!memberFound){
+                System.out.println(RED_BOLD+"Member not found try again..."+RESET);
+                return;
+            }else {
+                System.out.println("Enter book id"+GREEN_BOLD+" >> "+RESET);
+                String bookId =scanner.next();
+                boolean bookFound = false;
+                for (int i = 0; i < bookCount; i++) {
+                    if (books[i][0].equals(bookId)){
+                        bookFound = true;
+                        break;
+                    }
+                }
+                if (!bookFound){
+                    System.out.println(RED_BOLD+"Book not found try again..."+RESET);
+                    return;
+                }
+            }
+        }
     }
 
     public static void returnBooks(){
@@ -234,7 +272,7 @@ public class Libry_management {
         while (true) {
             System.out.println();
             equals();
-            System.out.println(BLUE_BOLD+"\t\t\t\t===ADD BOOK===\t\t\t\t\t |"+RESET);
+            System.out.println(BLUE_BOLD+"\t\t\t\t===VIEW REPORT===\t\t\t\t |"+RESET);
             equals();
             System.out.println();
             System.out.println(BLUE_BOLD+"\t\t[1] Overdue books.\t\t\t\t[2] Books issued per member."+RESET);
