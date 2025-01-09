@@ -6,10 +6,12 @@ public class Libry_management {
     static final int maxMembers= 100;
     static int bookCount=0;
     static int memberCount = 0;
+    static int issueCount = 0;
     static Scanner scanner = new Scanner(System.in);
-    static String[][] users = {{"@adithya", "2006"}};
+    static String[][] users = {{"adithya", "2006"}};
     static String[][] books = new String[maxBooks][5];
     static String[][] members = new String[maxMembers][4];
+    static String[][] issueBooks = new String[0][0];
 
     //colours
     public static final String RESET = "\033[0m";
@@ -19,8 +21,7 @@ public class Libry_management {
     public static final String PURPLE_BOLD = "\033[1;35m";
 
     public static void main(String[]args){
-        //logIn();
-        mainMenu();
+        logIn();
     }
 
     public static void equals(){
@@ -223,10 +224,9 @@ public class Libry_management {
     }
 
     public static void issueBooks(){
-        while (true){
             System.out.println();
             equals();
-            System.out.println(BLUE_BOLD+"\t\t\t\t===VIEW REPORT===\t\t\t\t |"+RESET);
+            System.out.println(BLUE_BOLD+"|\t\t\t\t===ISSUE BOOKS===\t\t\t\t |"+RESET);
             equals();
             System.out.println();
 
@@ -234,7 +234,7 @@ public class Libry_management {
                 System.out.println(RED_BOLD+"No members available to issue books..."+RESET);
                 return;
             }
-            System.out.println("Enter member id"+GREEN_BOLD+" >> "+RESET);
+            System.out.print("Enter member id"+GREEN_BOLD+" >> "+RESET);
             String memberId = scanner.next();
             boolean memberFound = false;
             for (int i = 0; i < memberCount; i++) {
@@ -247,7 +247,7 @@ public class Libry_management {
                 System.out.println(RED_BOLD+"Member not found try again..."+RESET);
                 return;
             }else {
-                System.out.println("Enter book id"+GREEN_BOLD+" >> "+RESET);
+                System.out.print("Enter book id"+GREEN_BOLD+" >> "+RESET);
                 String bookId =scanner.next();
                 boolean bookFound = false;
                 for (int i = 0; i < bookCount; i++) {
@@ -259,10 +259,36 @@ public class Libry_management {
                 if (!bookFound){
                     System.out.println(RED_BOLD+"Book not found try again..."+RESET);
                     return;
+                }else {
+                    System.out.print("Enter due date"+GREEN_BOLD+" >> "+RESET);
+                    String dueDate = scanner.next();
+                    System.out.println(GREEN_BOLD+"Book issued successfully..."+RESET);
+
+                    issueCount++;
+
+                    grow(issueBooks);
+                    issueBooks[issueBooks.length-1][0] = bookId;
+                    issueBooks[issueBooks.length-1][1] = memberId;
+                    issueBooks[issueBooks.length-1][2] = dueDate;
+
+                    for (int i = 0; i <issueCount ; i++) {
+                        System.out.println("Book id " + issueBooks[issueBooks.length-1][0]);
+                        System.out.println("Member id " + issueBooks[issueBooks.length-1][1]);
+                        System.out.println("Date " +  issueBooks[issueBooks.length-1][2]);
+                    }
                 }
             }
-        }
     }
+
+    public static void grow(String[][] arr) {
+        String[][] temp = new String[arr.length + 1][3];
+
+        for (int i = 0; i < arr.length; i++) {
+            temp[i] = arr[i];
+        }
+        issueBooks = temp;
+    }
+
 
     public static void returnBooks(){
         System.out.println("returnbooks");
@@ -272,7 +298,7 @@ public class Libry_management {
         while (true) {
             System.out.println();
             equals();
-            System.out.println(BLUE_BOLD+"\t\t\t\t===VIEW REPORT===\t\t\t\t |"+RESET);
+            System.out.println(BLUE_BOLD+"|\t\t\t\t===VIEW REPORT===\t\t\t\t|"+RESET);
             equals();
             System.out.println();
             System.out.println(BLUE_BOLD+"\t\t[1] Overdue books.\t\t\t\t[2] Books issued per member."+RESET);
@@ -314,7 +340,7 @@ public class Libry_management {
     public  static void addBook(){
             System.out.println();
             equals();
-            System.out.println(BLUE_BOLD+"\t\t\t\t===ADD BOOK===\t\t\t\t\t |"+RESET);
+            System.out.println(BLUE_BOLD+"|\t\t\t\t===ADD BOOK===\t\t\t\t\t|"+RESET);
             equals();
             System.out.println();
             System.out.print("Book id"+GREEN_BOLD+" >> "+RESET);
@@ -497,7 +523,7 @@ public class Libry_management {
     public  static void addMember(){
         System.out.println();
         equals();
-        System.out.println(BLUE_BOLD+"\t\t\t\t===ADD MEMBERS===\t\t\t\t |"+RESET);
+        System.out.println(BLUE_BOLD+"|\t\t\t\t===ADD MEMBERS===\t\t\t\t|"+RESET);
         equals();
         System.out.println();
         System.out.print("Member id"+GREEN_BOLD+" >> "+RESET);
@@ -518,13 +544,29 @@ public class Libry_management {
             members[memberCount][0] = id;
             System.out.print("Name" + GREEN_BOLD + " >> " + RESET);
             members[memberCount][1] = scanner.next();
-            System.out.print("Contact number" + GREEN_BOLD + " >> " + RESET);
-            members[memberCount][2] = scanner.next();
-            System.out.print("Email" + GREEN_BOLD + " >> " + RESET);
-            members[memberCount][3] = scanner.next();
-            System.out.println();
-            System.out.println(GREEN_BOLD+"Member added successfully..."+RESET);
-            memberCount++;
+            while (true){
+                System.out.print("Contact number" + GREEN_BOLD + " >> " + RESET);
+                String cNumber = scanner.next();
+                if (cNumber.length() == 10){
+                    members[memberCount][2] = cNumber;
+                    break;
+                }else {
+                    System.out.println(RED_BOLD+"Invalid contact number try again..."+RESET);
+                }
+            }
+            while (true){
+                System.out.print("Email" + GREEN_BOLD + " >> " + RESET);
+                String email = scanner.next();
+                if (email.endsWith("@gmail.com") || email.endsWith("@yahoo.com")){
+                    members[memberCount][3] = email;
+                    System.out.println();
+                    System.out.println(GREEN_BOLD+"Member added successfully..."+RESET);
+                    memberCount++;
+                    break;
+                }else {
+                    System.out.println(RED_BOLD+"Invalid email try again..."+RESET);
+                }
+            }
         }
         while (true){
             System.out.println();
