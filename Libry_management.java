@@ -266,7 +266,6 @@ public class Libry_management {
             } else {
                 System.out.print("Enter due date" + GREEN_BOLD + " >> " + RESET);
                 String dueDate = scanner.next();
-                System.out.println(GREEN_BOLD + "Book issued successfully..." + RESET);
 
                 issueCount++;
 
@@ -275,20 +274,19 @@ public class Libry_management {
                 issueBooks[issueBooks.length - 1][1] = memberId;
                 issueBooks[issueBooks.length - 1][2] = dueDate;
 
-                for (int i = 0; i < issueCount; i++) {
-                    System.out.println("Book id " + issueBooks[issueBooks.length - 1][0]);
-                    System.out.println("Member id " + issueBooks[issueBooks.length - 1][1]);
-                    System.out.println("Date " + issueBooks[issueBooks.length - 1][2]);
-                }
+//                for (int i = 0; i < issueCount; i++) {
+//                    System.out.println("Book id " + issueBooks[issueBooks.length - 1][0]);
+//                    System.out.println("Member id " + issueBooks[issueBooks.length - 1][1]);
+//                    System.out.println("Date " + issueBooks[issueBooks.length - 1][2]);
+//                }
                 for(int i = 0; i < bookCount;i++) {
                     int bookindex = i ;
                     books[bookindex][4] = String.valueOf(Integer.parseInt(books[bookindex][4]) - 1);
                 }
-                System.out.println("Book issued successfully!" );
 
-                System.out.println("\nPress Enter to return to the main menu...");
-                scanner.nextLine();
-                scanner.nextLine();
+                clearConsole();
+                System.out.println();
+                System.out.println(GREEN_BOLD+"Book issued successfully..."+RESET );
                 mainMenu();
                 return;
             }
@@ -306,31 +304,34 @@ public class Libry_management {
 
 
     public static void returnBooks() {
-        System.out.println("\t" + "--------------- Return Book ----------------");
         System.out.println();
-        Scanner input = new Scanner(System.in);
+        equals();
+        System.out.println(BLUE_BOLD + "|\t\t\t\t===RETURN BOOKS===\t\t\t\t |" + RESET);
+        equals();
+        System.out.println();
 
-        // Search for the member
-        System.out.print("Enter the Member ID to search: ");
-        String searchMemberId = input.next();
+        System.out.print("Enter the Member ID to search"+GREEN_BOLD+" >> "+RESET);
+        String searchMemberId = scanner.next();
         boolean memberFound = false;
 
         for (int i = 0; i < issueCount; i++) {
             if (issueBooks[i][1].equals(searchMemberId)) {
                 memberFound = true;
-                System.out.println("Valid Member ID.");
+                System.out.println();
+                System.out.println(GREEN_BOLD+"Valid Member ID..."+RESET);
 
-                System.out.print("Enter book ID: ");
-                String bookId = input.next();
+                System.out.print("Enter book ID"+GREEN_BOLD+" >> "+RESET);
+                String bookId = scanner.next();
                 boolean bookFound = false;
 
                 for (int j = 0; j < issueCount; j++) {
                     if (issueBooks[j][0].equals(bookId) && issueBooks[j][1].equals(searchMemberId)) {
                         bookFound = true;
-                        System.out.println("Valid Book ID.");
+                        System.out.println();
+                        System.out.println(GREEN_BOLD+"Valid Book ID..."+RESET);
 
-                        System.out.print("Enter today's date (yyyy-MM-dd): ");
-                        String todayDateInput = input.next();
+                        System.out.print("Enter today's date (yyyy-MM-dd)"+GREEN_BOLD+" >> "+RESET);
+                        String todayDateInput = scanner.next();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                         LocalDate todayLocalDate = LocalDate.parse(todayDateInput, formatter);
 
@@ -339,71 +340,73 @@ public class Libry_management {
 
                             if (todayLocalDate.isAfter(dueDate)) {
                                 long overdueDays = ChronoUnit.DAYS.between(dueDate, todayLocalDate);
-                                long fine = overdueDays * 50;
-                                System.out.println("The return date is overdue!");
-                                System.out.println("Fine: " + fine);
-                                System.out.println("Overdue days: " + overdueDays);
+                                double fine = overdueDays * 0.50;
+                                System.out.println(RED_BOLD+"The return date is overdue..."+RESET);
+                                System.out.println(BLUE_BOLD+"Fine : "+RESET + fine);
+                                System.out.println(BLUE_BOLD+"Overdue days : "+RESET + overdueDays);
                             } else {
-                                System.out.println("The return date is not overdue.");
+                                System.out.println(GREEN_BOLD+"The return date is not overdue..."+RESET);
                             }
                         } else {
-                            System.out.println("Invalid or missing due date.");
+                            System.out.println(RED_BOLD+"Invalid or missing due date..."+RESET);
                         }
 
-                        books[i][4] = String.valueOf(Integer.parseInt(books[i][4]) + 1);  // Update book quantity
+                        books[i][4] = String.valueOf(Integer.parseInt(books[i][4]) + 1);
                         for (int k = j; k < issueCount - 1; k++) {
                             issueBooks[k] = issueBooks[k + 1];
                         }
-                        issueBooks[issueCount - 1] = new String[4];  // Reset last entry
+                        issueBooks[issueCount - 1] = new String[4];
                         issueCount--;
 
-                        System.out.println("Book returned successfully!");
-                        System.out.print("Press Enter to return to the main menu...");
-                        input.nextLine();  // Consume leftover newline
-                        input.nextLine();  // Wait for enter
+                        System.out.println();
+                        System.out.println(GREEN_BOLD+"Book returned successfully..."+RESET);
                         return;
                     }
                 }
 
                 if (!bookFound) {
-                    System.out.println("Invalid Book ID.");
+                    System.out.println();
+                    System.out.println(RED_BOLD+"Invalid Book ID..."+RESET);
                 }
             }
         }
 
         if (!memberFound) {
-            System.out.println("Member ID not found.");
+            System.out.println();
+            System.out.println(RED_BOLD+"Member ID not found..."+RESET);
         }
-
-        System.out.println("\nPress Enter to return to the main menu...");
-        input.nextLine();
-        input.nextLine();
-
         mainMenu();
     }
 
     public static void viewReport() {
-        System.out.println("\t--------------- View Book Report ----------------");
         System.out.println();
-        System.out.println("\t[1] Overdue Book");
-        System.out.println("\t[2] Book Issued to Members");
+        equals();
+        System.out.println(BLUE_BOLD + "|\t\t\t\t===VIEW REPORT===\t\t\t\t |" + RESET);
+        equals();
+        System.out.println();
+        System.out.println(BLUE_BOLD+"\t\t[1] Overdue Book.\t\t\t[2] Book Issued to Members."+RESET);
+        System.out.println(BLUE_BOLD+"\t\t[3] Back to main menu."+RESET);
+        System.out.println();
 
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter Today's date (yyyy-MM-dd): ");
+        System.out.print("Enter Today's date (yyyy-MM-dd)"+GREEN_BOLD+" >> "+RESET);
         String todayDate = input.next();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate todayLocalDate = LocalDate.parse(todayDate, formatter);
 
-        System.out.print("Enter your choice: ");
+        System.out.print("Enter your choice"+GREEN_BOLD+" >> "+RESET);
         int returnChoice = input.nextInt();
 
         switch (returnChoice) {
             case 1:
                 clearConsole();
-                System.out.println("\t--------------- Overdue Books ----------------");
                 System.out.println();
-                System.out.println("Book Id\t\tMember Id\tDue Date\tDays Overdue\tFine");
+                equals();
+                System.out.println(BLUE_BOLD + "|\t\t\t\t===OVERDUE BOOK===\t\t\t\t |" + RESET);
+                equals();
+                System.out.println();
+                System.out.println(BLUE_BOLD+"Book Id\t\tMember Id\tDue Date\tDays Overdue\tFine"+RESET);
 
                 for (int i = 0; i < issueCount; i++) {
                     if (issueBooks[i].length > 3 && issueBooks[i][3] != null && !issueBooks[i][3].isEmpty()) {
@@ -421,9 +424,12 @@ public class Libry_management {
 
             case 2:
                 clearConsole();
-                System.out.println("\t--------------- Books Issued to Members ----------------");
                 System.out.println();
-                System.out.println("Member Id\tTotal Books Issued");
+                equals();
+                System.out.println(BLUE_BOLD + "|\t\t\t\t===BOOK ISSUED TO MEMBERS===\t\t\t |" + RESET);
+                equals();
+                System.out.println();
+                System.out.println(BLUE_BOLD+"Member Id\tTotal Books Issued"+RESET);
 
                 for (int i = 0; i < memberCount; i++) {
                     String memberId = members[i][0];
@@ -440,21 +446,19 @@ public class Libry_management {
                     }
                 }
                 break;
+            case 3:
+                clearConsole();
+                System.out.println();
+                System.out.println(GREEN_BOLD+"Back to main menu..."+RESET);
+                mainMenu();
+                break;
 
             default:
                 clearConsole();
-                System.out.println("Invalid choice. Try again.");
+                System.out.println();
+                System.out.println(RED_BOLD+"Invalid choice. Try again..."+RESET);
                 mainMenu();
         }
-    }
-
-
-    private static void viewBooksIssuedPerMember() {
-        System.out.println("viewbooksper");
-    }
-
-    private static void viewOverdueBooks() {
-        System.out.println("viewowerdue");
     }
 
     //manageBooks
